@@ -14,7 +14,7 @@ def get_todo_item(todo_list_id: int, todo_item_id: int, db: Session = Depends(ge
     db_item = item_crud.get_todo_item(db, todo_list_id, todo_item_id)
     return db_item
 
-@router.post("/{todo_list_id}/items/")
+@router.post("/{todo_list_id}/items")
 def create_todo_item(todo_list_id: int, new_todo_item: NewTodoItem, db: Session = Depends(get_db)):
     db_item = item_crud.create_todo_item(db, todo_list_id, new_todo_item)
     return db_item
@@ -30,3 +30,7 @@ def delete_todo_item(todo_list_id: int, todo_item_id: int, db: Session=Depends(g
     db_item = item_crud.get_todo_item(db, todo_list_id, todo_item_id)
     db_item = item_crud.delete_todo_item(db, todo_list_id, todo_item_id)
     return db_item
+
+@router.get("/{todo_list_id}/items")
+def get_todo_items(page: int, per_page: int, db: Session=Depends(get_db)):
+    return item_crud.get_todo_items(db, page, per_page)

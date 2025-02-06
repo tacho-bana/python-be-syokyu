@@ -30,3 +30,7 @@ def delete_todo_list(todo_list_id: int, db: Session = Depends(get_db)):
     db_item = list_crud.get_todo_list(db, todo_list_id)
     db_item = list_crud.delete_todo_list(db, todo_list_id)
     return db_item
+
+@router.get("/")
+def get_todo_lists(page: int, per_page: int, db: Session = Depends(get_db)):
+    return list_crud.get_todo_lists(db, page, per_page)
